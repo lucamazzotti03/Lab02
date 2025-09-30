@@ -1,19 +1,56 @@
+from operator import itemgetter
 def carica_da_file(file_path):
+    try:
+        file = open(file_path, "r")
+    except FileNotFoundError:
+        print("file non trovato")
+    biblioteca = []
+    for riga in file:
+        parola = riga.rstrip().split(",")
+        if len(parola) < 2:
+            sezioni = parola[0]
+        else:
+            biblioteca.append({"nome": parola[0],
+                           "autore": parola[1],
+                           "anno": int(parola[2]),
+                           "pagine": int(parola[3]),
+                           "sezione": int(parola[4])})
+    #print(biblioteca)
+    return biblioteca
+
     """Carica i libri dal file"""
     # TODO
 
 
 def aggiungi_libro(biblioteca, titolo, autore, anno, pagine, sezione, file_path):
+    libro = {"nome": titolo,
+            "autore": autore,
+            "anno": anno,
+            "pagine": pagine,
+            "sezione": sezione}
+    biblioteca.append(libro)
+    return libro
     """Aggiunge un libro nella biblioteca"""
     # TODO
 
 
 def cerca_libro(biblioteca, titolo):
+    for libro in biblioteca:
+        if libro["nome"] == titolo:
+            risultato = libro
+    return risultato
     """Cerca un libro nella biblioteca dato il titolo"""
     # TODO
 
 
 def elenco_libri_sezione_per_titolo(biblioteca, sezione):
+    titoli = []
+    for libro in biblioteca:
+        if libro["sezione"] == sezione:
+            titoli.append(libro)
+    titoli_ordinati = sorted(titoli, key=itemgetter("nome"))
+    print(titoli_ordinati)
+    return titoli_ordinati
     """Ordina i titoli di una data sezione della biblioteca in ordine alfabetico"""
     # TODO
 
