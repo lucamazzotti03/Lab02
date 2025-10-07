@@ -3,7 +3,7 @@ def carica_da_file(file_path):
     try:
         file = open(file_path, "r")
     except FileNotFoundError:
-        print("file non trovato ")
+        print("file non trovato")
     biblioteca = []
     for riga in file:
         parola = riga.rstrip().split(",")
